@@ -1,0 +1,60 @@
+name: Backend Deployment Trigger
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
+on:
+  push:
+    branches:
+      - dev
+      - prod
+      - main
+    paths:
+      - 'backend/**'
+  workflow_dispatch:
+
+jobs:
+
+  # ---------------------- SETUP ----------------------
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Environment Details
+        run: |
+          echo "🚀 Backend Docker Build & Push Workflow"
+          echo "Branch: ${{ github.ref }}"
+
+  # ---------------------- DEV ----------------------
+  build-and-push-dev:
+    name: Dev
+    needs: setup
+    uses: Central-DIT/tesa-app-deploy/.github/workflows/Backend_docker_deploy.yml@main
+    with:
+      environment: "dev"
+      image_name: "${{ fromJson(vars.APP_INFO_DEV).application_name}}-api-dev"
+      app_info: '{ 
+        "api_container_app_name": "${{ fromJson(vars.APP_INFO_DEV).container_app_prefix }}${{ fromJson(vars.APP_INFO_DEV).application_name }}api",
+        "app_resource_group": "${{ fromJson(vars.APP_INFO_DEV).app_resource_group }}",
+        "acr_name": "${{ fromJson(vars.APP_INFO_DEV).acr_name }}"
+        }'
+    secrets:
+      azure_creds: ${{ secrets.AZURE_CREDENTIALS_DEV }}
+      docker_env: ${{ secrets.DOCKER_ENV_DEV }} 
+  
+  # ---------------------- PROD ----------------------
+  build-and-push-prod:
+    name: Prod
+    needs: setup
+    uses: Central-DIT/tesa-app-deploy/.github/workflows/Backend_docker_deploy.yml@main
+    with:
+      environment: "prod"
+      image_name: "${{ fromJson(vars.APP_INFO_PRD).application_name}}-api-prd"
+      app_info: '{ 
+        "api_container_app_name": "${{ fromJson(vars.APP_INFO_PRD).container_app_prefix }}${{ fromJson(vars.APP_INFO_PRD).application_name }}api",
+        "app_resource_group": "${{ fromJson(vars.APP_INFO_PRD).app_resource_group }}",
+        "acr_name": "${{ fromJson(vars.APP_INFO_PRD).acr_name }}"
+        }'
+    secrets:
+      azure_creds: ${{ secrets.AZURE_CREDENTIALS_PRD }}
+      docker_env: ${{ secrets.DOCKER_ENV_PRD }} 

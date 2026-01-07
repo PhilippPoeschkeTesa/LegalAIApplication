@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .dark-card {
+    @apply dark:bg-slate-800/50 dark:border-slate-700 dark:backdrop-blur-sm;
+  }
+
+  .dark-text-primary {
+    @apply dark:text-white;
+  }
+
+  .dark-text-secondary {
+    @apply dark:text-slate-300;
+  }
+
+  .dark-text-muted {
+    @apply dark:text-slate-400;
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "tesa-ai-hub-backend",
+  "version": "1.0.0",
+  "description": "Backend API für das Tesa Legal AI  Portal (Use Cases, Auth, RBAC)",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "@azure/ai-projects": "^2.0.0-beta.1",
+    "@azure/identity": "^4.13.0",
+    "@azure/storage-blob": "^12.10.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/sequelize": "^4.28.20",
+    "applicationinsights": "^3.12.1",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^1.4.4",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7",
+    "socket.io": "^4.8.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/chai": "^5.2.3",
+    "@types/cors": "^2.8.17",
+    "@types/deep-eql": "^4.0.2",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^30.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^20.11.30",
+    "@types/pg": "^8.15.6",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.5",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
