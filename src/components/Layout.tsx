@@ -66,7 +66,7 @@ export function Layout({ children }: LayoutProps) {
             >
               {sidebarOpen ? <X size={20} className={c.text.primary} /> : <Menu size={20} className={c.text.primary} />}
             </button>
-            <img src="/image.png" alt="tesa" className="h-8" />
+            <img src="/tesa-logo.png" alt="tesa" className="h-8" />
           </div>
 
           <h1 className={`text-xl font-semibold ${c.text.primary}`}>LegalAI</h1>

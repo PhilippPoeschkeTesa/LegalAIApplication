@@ -73,7 +73,7 @@ export function Auth() {
       <header className={`${c.card.bg} border-b ${c.card.border} px-6 py-4`}>
         <div className="max-w-7xl mx-auto flex items-center justify-center relative">
           <div className="absolute left-0">
-            <img src="/image.png" alt="tesa" className="h-8" />
+            <img src="/tesa-logo.png" alt="tesa" className="h-8" />
           </div>
           <h1 className={`text-xl font-semibold ${c.text.primary}`}>LegalAI</h1>
           <div className="absolute right-0 flex items-center gap-3">
@@ -107,7 +107,7 @@ export function Auth() {
         <div className="w-full max-w-md">
           <div className={`${c.card.bg} rounded-xl border ${c.card.border} p-8`}>
             <div className="text-center mb-8">
-              <img src="/image.png" alt="tesa" className="h-12 mx-auto mb-4" />
+              <img src="/tesa-logo.png" alt="tesa" className="h-12 mx-auto mb-4" />
               <h2 className={`text-2xl font-bold ${c.text.primary} mb-2`}>{t.auth.welcome}</h2>
               <p className={c.text.secondary}>{t.auth.subtitle}</p>
             </div>
