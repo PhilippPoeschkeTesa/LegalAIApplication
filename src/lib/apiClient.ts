@@ -183,6 +183,69 @@ class ApiClient {
       this.post<any>('/api/documents/generate-preview', builderState),
   };
 
+  redlineDocuments = {
+    upload: async (
+      file: File,
+      metadata: { title?: string; tags?: string[]; confidentiality_level?: string }
+    ): Promise<ApiResponse<any>> => {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('title', metadata.title || file.name);
+      if (metadata.tags) formData.append('tags', JSON.stringify(metadata.tags));
+      if (metadata.confidentiality_level)
+        formData.append('confidentiality_level', metadata.confidentiality_level);
+
+      const url = buildUrl('/api/redline-documents/upload');
+      const headers: Record<string, string> = {};
+      if (this.token) {
+        headers['Authorization'] = `Bearer ${this.token}`;
+      }
+
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers,
+          body: formData,
+          signal: AbortSignal.timeout(apiConfig.timeout),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          return { success: false, error: data.error || 'Upload failed' };
+        }
+
+        return { success: true, data: data.data };
+      } catch (error) {
+        return {
+          success: false,
+          error: error instanceof Error ? error.message : 'Network error',
+        };
+      }
+    },
+    getAll: () => this.get<any[]>('/api/redline-documents'),
+    getById: (id: string) => this.get<any>(`/api/redline-documents/${id}`),
+    getVersions: (id: string) => this.get<any[]>(`/api/redline-documents/${id}/versions`),
+  };
+
+  redline = {
+    startRun: (data: {
+      documentId: string;
+      versionId: string;
+      profileId?: string;
+      primaryModel?: string;
+      verifierModel?: string;
+    }) => this.post<any>('/api/redline/run', data),
+    getRunStatus: (runId: string) => this.get<any>(`/api/redline/runs/${runId}`),
+    getRunFindings: (runId: string) => this.get<any[]>(`/api/redline/runs/${runId}/findings`),
+    recordDecision: (findingId: string, data: any) =>
+      this.post<any>(`/api/redline/findings/${findingId}/decision`, data),
+  };
+
+  editor = {
+    createSession: (versionId: string) => this.post<any>('/api/editor/session', { versionId }),
+  };
+
   auth = {
     login: (email: string, password: string) =>
       this.post<{ token: string; user: User }>('/api/auth/login', { email, password }),

@@ -11,6 +11,7 @@ import { Review } from './pages/Review';
 import { Draft } from './pages/Draft';
 import { Builder } from './pages/Builder';
 import { Repository } from './pages/Repository';
+import { Dashboard } from './pages/Dashboard';
 import { Intake } from './pages/Intake';
 import { Search } from './pages/Search';
 import { Clauses } from './pages/Clauses';
@@ -76,6 +77,7 @@ function AppRoutes() {
         <Route path={appRoutes.draft} element={<ProtectedRoute requirePath={appRoutes.draft}><Draft /></ProtectedRoute>} />
         <Route path={appRoutes.builder} element={<ProtectedRoute requirePath={appRoutes.builder}><Builder /></ProtectedRoute>} />
         <Route path={appRoutes.repository} element={<ProtectedRoute requirePath={appRoutes.repository}><Repository /></ProtectedRoute>} />
+        <Route path="/dashboard/:runId" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path={appRoutes.intake} element={<ProtectedRoute requirePath={appRoutes.intake}><Intake /></ProtectedRoute>} />
         <Route path={appRoutes.search} element={<ProtectedRoute requirePath={appRoutes.search}><Search /></ProtectedRoute>} />
         <Route path={appRoutes.clauses} element={<ProtectedRoute requirePath={appRoutes.clauses}><Clauses /></ProtectedRoute>} />
